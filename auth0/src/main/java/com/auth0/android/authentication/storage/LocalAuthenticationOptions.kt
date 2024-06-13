@@ -1,9 +1,10 @@
 package com.auth0.android.authentication.storage
 
+import androidx.annotation.VisibleForTesting
 import androidx.biometric.BiometricManager
 
 
-public class LocalAuthenticationOptions private constructor(
+public class LocalAuthenticationOptions @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE) constructor(
     public val title: String,
     public val subtitle: String?,
     public val description: String?,
@@ -34,14 +35,16 @@ public class LocalAuthenticationOptions private constructor(
         public fun negativeButtonText(negativeButtonText: String): Builder =
             apply { this.negativeButtonText = negativeButtonText }
 
-        public fun build(): LocalAuthenticationOptions = LocalAuthenticationOptions(
-            title ?: throw IllegalArgumentException("Title must be provided"),
-            subtitle,
-            description,
-            authenticator,
-            enableDeviceCredentialFallback,
-            negativeButtonText
-        )
+        public fun build(): LocalAuthenticationOptions {
+            return LocalAuthenticationOptions(
+                title ?: throw IllegalArgumentException("Title must be provided"),
+                subtitle,
+                description,
+                authenticator,
+                enableDeviceCredentialFallback,
+                negativeButtonText
+            )
+        }
     }
 }
 

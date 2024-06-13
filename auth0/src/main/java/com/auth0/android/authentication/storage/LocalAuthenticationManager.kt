@@ -21,7 +21,6 @@ internal class LocalAuthenticationManager(
             authenticationOptions.authenticationLevel.value
         }
 
-        // canAuthenticate API doesn't work as expected on all the API levels, need to work on this.
         val isAuthenticationPossible = biometricManager.canAuthenticate(authenticationLevels)
         if (isAuthenticationPossible != BiometricManager.BIOMETRIC_SUCCESS) {
             resultCallback.onFailure(
